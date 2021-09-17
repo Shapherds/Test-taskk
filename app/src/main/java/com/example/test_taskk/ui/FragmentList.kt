@@ -6,14 +6,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.example.test_taskk.adapters.MusicItemRecyclerViewAdapter
-import com.example.test_taskk.database.DataBase
-import com.example.test_taskk.database.DataBaseImp
+import com.example.test_taskk.database.DataSource
+import com.example.test_taskk.database.DataSourceImp
 import com.example.test_taskk.databinding.FragmentListBinding
+
 
 class FragmentList : Fragment() {
 
-    private val dataBase: DataBase = DataBaseImp()
+    private val dataBase: DataSource = DataSourceImp()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -21,6 +23,11 @@ class FragmentList : Fragment() {
     ): View {
         val view = FragmentListBinding.inflate(layoutInflater, container, false)
         view.root.adapter = MusicItemRecyclerViewAdapter(dataBase.getMediaItems())
+        view.root.addItemDecoration(
+            DividerItemDecoration(
+                requireContext(),
+                DividerItemDecoration.VERTICAL
+            ))
         return view.root
     }
 
